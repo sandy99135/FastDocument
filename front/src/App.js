@@ -7,9 +7,11 @@ import axios from "axios"
 import "./App.css";
 import "./acceuil.css";
 import "./login.css";
+import "./deconnect.css";
 import "./residence.css";
 import  "dom-to-image/dist/dom-to-image.min.js"
 import { saveAs } from 'file-saver'
+import Dashboard from "./components/Dashboard"
 // import "./font-awesome.min.css"
 
 // Check for token to keep user logged in
@@ -19,6 +21,7 @@ class App extends Component {
     super()
     this.state={
       connect:false,
+      username:"",
       nom:"",
       prenom:"",
       birthday:"",
@@ -43,6 +46,7 @@ class App extends Component {
   }
   handleSubmit(e){
     e.preventDefault()
+    alert(this.uploadInput.files[0])
     const individu= {
                     nom: this.state.nom,
                     prenom: this.state.prenom,
@@ -50,6 +54,7 @@ class App extends Component {
                     birthday: this.state.birthday,
                     ancquartier: this.state.ancquartier,
                     nouvquartier: this.state. nouvquartier,
+                    image:this.uploadInput.files[0],
                     adresse: this.state.adresse,
                     telephone: this.state.telephone,
                     password: this.state.password,
@@ -63,9 +68,10 @@ class App extends Component {
   }
   componentDidMount(){
     axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
-      console.log(res.data)
       this.setState({profil:res.data})
+       this.setState({username:res.data.nom})
       this.setState({connect: localStorage.getItem("connect")})
+       console.log(this.state.connect)
     })
   }
   handleConnect(e){
@@ -77,13 +83,32 @@ class App extends Component {
                 }
     axios.post("http://localhost:8080/login",individu).
     then(res=>{
+      console.log(res.data)
+       if(res.data=='User not found'){
+        document.querySelector(".erreuruser").innerHTML="utilisateur introuvable"  
+         }
+      else if(res.data!=='User not found'&& res.data=='Incorrect Password'){
+        document.querySelector(".erreuruser").innerHTML="" 
+        document.querySelector(".erreurpassword").innerHTML="mot de passe incorrect"  
+         }
+     if(res.data!=='Incorrect Password' && res.data!=='User not found' ){
+       document.querySelector(".erreurpassword").innerHTML="" 
     localStorage.setItem("id",res.data.id)
     localStorage.setItem("nom",res.data.nom)
     localStorage.setItem("connect",res.data.success)
-    
+    axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
+      this.setState({profil:res.data})
+      this.setState({connect: localStorage.getItem("connect")})
+      this.setState({username:res.data.nom})
+      console.log(this.state.connect)
     })
      this.setState({connect:true})
-     document.querySelector(".connect").style.display="none"
+    document.querySelector(".connect").style.display="none"
+      }
+   
+    
+    })
+     
   
   }
    handleConnectRes(e){
@@ -117,6 +142,7 @@ class App extends Component {
     localStorage.removeItem("nom")
     localStorage.removeItem("connect")
     this.setState({connect:false})
+    document.querySelector(".deconnect").style.display="none"
   }
   render() {
 
@@ -153,24 +179,8 @@ class App extends Component {
         console.error('oops, something went wrong!', error);
     });
    }
-
-        // doc.fromHTML(
-        // source,
-        // 15,
-        // 15,
-        // {
-        //   'width': 180,'elementHandlers': elementHandler
-        // });
-  
-        // doc.output("datauri");
-        // doc.save("datauri.pdf");
-     
-  
-      // $( document ).ready(function() {
-      //   //console.log( "ready!" );
-      //   PDF1();
-      // });
     return (
+    <Router>
         <div>
           <div class=" navbar container-fluid" style={styl}>
             <div class="logo">
@@ -179,7 +189,16 @@ class App extends Component {
                 
             </div>
             <div class="connection"> 
-              {this.state.connect ? (<span class="connecter" onClick={this.handleDeconnect}>Deconnecter</span>):(<span class="connecter" onClick={()=>{
+              {this.state.connect ? (
+             <div className="user"> 
+             <select> 
+              <option> {this.state.username} </option> 
+              <option>Parametre</option> 
+              <option onClick={(e)=> { 
+                      e.preventDefault()
+                      document.querySelector(".deconnect").style.display="block"}}>Deconnecter</option> 
+             </select> 
+              </div>):(<span class="connecter" onClick={()=>{
                         document.querySelector(".connect").style.display="block"
                         document.querySelector(".connect").style.top="0"
                         document.querySelector(".inscription1").style.display="block"
@@ -192,22 +211,6 @@ class App extends Component {
              <div class=" row1 " >
                   <div class="  menu" >
                   <h3> Acceuil</h3>
-                  </div>
-                  <div class="  menu" >
-                   <h3> Fifindramonina</h3>
-                  </div>
-                  <div class=" menu" >
-                   <h3> Copie</h3>
-                  </div>
-              </div>
-              <div class=" row1 " >
-                  <div class=" menu" >
-                   <h3 onClick={function(){
-                    document.querySelector(".register").style.display="block"
-                     document.querySelector(".register").style.top="0"
-                     document.querySelector(".inscription").style.display="block"
-                    
-                   }}> Fisoratana Anarana</h3>
                   </div>
                   <div class="  menu" >
                     <h3 onClick={function(){
@@ -226,7 +229,29 @@ class App extends Component {
                    }}> Fanamarinam-ponenana</h3>
                   </div>
                   <div class="  menu" >
-                    <h3>Mombamomba</h3>
+                   <h3> Fifindramonina</h3>
+                  </div>
+                  <div class=" menu" >
+                   <h3> Copie</h3>
+                  </div>
+              </div>
+              <div class=" row1 " >
+                  <div class=" menu" >
+                   <h3 onClick={function(){
+                    document.querySelector(".register").style.display="block"
+                     document.querySelector(".register").style.top="0"
+                     document.querySelector(".inscription").style.display="block"
+                    
+                   }}> Fisoratana Anarana</h3>
+                  </div>
+                  <div class="  menu" >
+                    <h3>Administrateur</h3>
+                  </div>
+                  <div class="  menu" >
+                    <h3>Carte</h3>
+                  </div>
+                   <div class="  menu" >
+                    <h3>Contact</h3>
                   </div>
               </div>
           </div>
@@ -241,7 +266,8 @@ class App extends Component {
                     <label for="name">Votre precedent quartier </label><br/><input placeholder="Fokotany nisy anao taloha  " onChange={this.handleChange} value={this.state.value} name="ancquartier" />
                     <label for="name">Votre nouveau quartier </label><br/><input placeholder="Fokotany hisoratanao anarana " onChange={this.handleChange} value={this.state.value} name="nouvquartier" />
                     <label for="name">Adresse</label><br/><input placeholder="Adresse" onChange={this.handleChange} value={this.state.value} name="adresse" />
-                    <label for="name">Numero telephone </label><br/><input placeholder="Numero telephone " onChange={this.handleChange} value={this.state.value} name="telephone" />
+                    <label for="name">Adresse</label><br/><input placeholder="Adresse" onChange={this.handleChange} value={this.state.value} name="adresse" />
+                    <label for="name">Votre photo </label><br/><input ref={(ref) => { this.uploadInput = ref; }} type="file"/>
                     <label for="name">Votre pseudo </label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo" />
                     <label for="name">Mot de passe  </label><br/><input placeholder="Mot de passe " type="password" onChange={this.handleChange} value={this.state.value} name="password" />
                     <label for="name">Confirmer mot de passe</label><br/><input placeholder="Confirmer mot de passe " type="password" onChange={this.handleChange} value={this.state.value} name="password_confirm" />
@@ -258,7 +284,9 @@ class App extends Component {
                 <form>
                     <h3>Connection</h3>
                     <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/>
+                     <span className=" text-danger erreuruser "></span><br/>
                     <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" />
+                       <span className=" text-danger erreurpassword "></span><br/>
                      <button className=" fermer btn-danger"onClick={this.handleConnect}>Connecter</button>
                       <button className=" hiditra btn-danger" onClick={(e)=> { 
                       e.preventDefault()
@@ -271,7 +299,9 @@ class App extends Component {
                 <form>
                     <h3>Connection</h3>
                     <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/>
+                    <span className=" text-danger erreuruser "></span>
                     <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" />
+                     <span className=" text-danger erreurpassword "></span>
                      <button className=" fermer btn-danger"onClick={this.handleConnectRes}>Connecter</button>
                       <button className=" hiditra btn-danger" onClick={(e)=> { 
                       e.preventDefault()
@@ -308,7 +338,22 @@ class App extends Component {
                 </form>   
               </div>
             </div> 
+             <div className="deconnect">
+              <div class=" inscription4">
+                <form>
+                    <h3>Souhaitez-vous deconnecter vraiment ?</h3>
+                     <button className=" fermer btn-danger"onClick={this.handleDeconnect}>Oui</button>
+                      <button className=" hiditra btn-danger" onClick={(e)=> { 
+                      e.preventDefault()
+                      document.querySelector(".deconnect").style.display="none"}}> Non</button>
+                </form>   
+              </div>
+            </div>
+            <Route path="/dashboard" component={Dashboard}/>
+     
         </div>
+    </Router>
+       
     );
   }
 }

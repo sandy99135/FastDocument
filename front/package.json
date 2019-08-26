@@ -25,6 +25,7 @@
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "webcamjs": "^1.0.25",
     "webshot": "^0.18.0"
   },
   "scripts": {

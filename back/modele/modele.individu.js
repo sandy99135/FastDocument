@@ -29,6 +29,9 @@ const IndividuSchema = new Schema({
     adresse: {
         type: String,
     },
+    image:{
+        type:String
+    },
 
    telephone: {
         type: Number,

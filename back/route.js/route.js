@@ -29,6 +29,14 @@ router.post('/register', function(req, res) {
         if(!isValid) {
             return res.status(400).json(errors);
         }
+        let imageFile1 = req.files.image;
+                console.log(req.files);
+                
+                  imageFile1.mv(`${__dirname}/public/${id}.jpg`, function(err) {
+                    if (err) {
+                      return res.status(500).send("err");
+                    }
+                                  })
          Individu.findOne({
             pseudo: req.body.pseudo
         }).then(user => {
@@ -52,6 +60,7 @@ router.post('/register', function(req, res) {
                     ancquartier: req.body.ancquartier,
                     nouvquartier: req.body. nouvquartier,
                     adresse: req.body.adresse,
+                    image:id+".jpg",
                     telephone: req.body.telephone,
                     password: req.body.password,
                     avatar
@@ -97,8 +106,9 @@ router.post('/login', (req, res) => {
     Individu.findOne({pseudo})
         .then(user => {
             if(!user) {
-                errors.pseudo = 'User not found'
-                return res.status(404).json(errors);
+                res.send('User not found')
+                // errors.pseudo = 'User not found'
+                // return res.status(404).json(errors);
             }
             bcrypt.compare(password, user.password)
                     .then(isMatch => {
@@ -125,18 +135,22 @@ router.post('/login', (req, res) => {
                                         success: true,
                                         token: `Bearer ${token}`
                                     });
+                                    router.get('/user/:_id',(req,res)=>{
+                                       Individu.findById(req.params._id).then(user=>res.send(user))
+                                    })
                                 }
                             });
                         }
                         else {
-                            errors.password = 'Incorrect Password';
-                            return res.status(400).json(errors);
+                            res.send('Incorrect Password')
+                            // errors.password = 'Incorrect Password';
+                            // return res.status(400).json(errors);
                         }
                     });
         });
 });
-router.get('/cuisine',(req,res)=>{
-    Cuisinier.find().then(user=>res.send(user))
+router.get('/user',(req,res)=>{
+    Individu.find().then(user=>res.send(user))
 })
 router.get('/user/:_id',(req,res)=>{
    Individu.findById(req.params._id).then(user=>res.send(user))
