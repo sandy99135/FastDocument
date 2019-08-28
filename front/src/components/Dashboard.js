@@ -1,30 +1,96 @@
 import React, { Component } from "react";
 import "./dashboard.css"
 import axios from "axios"
+import "./admin.css";
 class Dashboard extends Component {
 	constructor(){
 		super()
 		this.state={
 			habitant:[],
-			search:""
+			search:"",
+			nom:"",
+			password:"",
+			quartier:""
 		}
 		this.searchChange= this.searchChange.bind(this)
+		this.handleChange= this.handleChange.bind(this)
+		this.handleConnect= this.handleConnect.bind(this)
 	}
 	searchChange(e){
 		this.setState({search:e.target.value})
+	}
+	handleChange(e){
+		this.setState({[e.target.name]: e.target.value })
 	}
 	componentDidMount(){
 		axios.get("http://localhost:8080/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})
+		if(localStorage.getItem("admin")!== null){
+			document.querySelector(".admin").style.display="none"
+		}
 	}
+	handleConnect(e){
+    e.preventDefault()
+    console.log("connect")
+    const admin= [
+    {
+    	nom:"RAKOTO",
+    	quartier:"Ambatomaro",
+    	password:"Ambatomaro"
+    },
+    {
+    	nom:"RABE",
+    	quartier:"Ambomirary",
+    	password:"Ambomirary"
+    }
+    ] 
+    const individu= {
+                    nom: this.state.nom,
+                    quartier:this.state.quartier,
+                    password: this.state.password
+                }
+   var tab=[]
+     for(let i=0;i<admin.length;i++){
+     	if(admin[i].nom==this.state.nom && admin[i].quartier==this.state.quartier && admin[i].password==this.state.password){
+     		tab.push(admin[i])
+     	}
+     	
+     }
+     if(tab.length>0){
+     	localStorage.setItem("admin",this.state.quartier)
+     	document.querySelector(".admin").style.display="none"
+     }
+     else{
+     	 alert("misy tsy mety")
+     }
+
+ 
+  }
 	render(){
 		return(
+		<div>
+			 <div className="admin">
+              <div class=" inscription1">
+                <form>
+                    <h3>Connection</h3>
+                    <label for="name">Votre Nom</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="nom"/>
+                     <span className=" text-danger erreuruser "></span><br/>
+                    <label for="name">Votre quartier</label><br/><input placeholder="Entrer votre quartier " onChange={this.handleChange} value={this.state.value} name="quartier"/>
+                    <span className=" text-danger erreuruser "></span><br/>
+                    <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" />
+                       <span className=" text-danger erreurpassword "></span><br/>
+                     <button className=" fermer btn-danger"onClick={this.handleConnect}>Connecter</button>
+                      <button className=" hiditra btn-danger" onClick={(e)=> { 
+                      e.preventDefault()
+                      document.querySelector(".connect").style.display="none"}}> Hiverina</button>
+                </form>   
+              </div>
+            </div> 
 			<div class="d-flex" id="wrapper">
-			    
 			    <div class="bg-light border-right" id="sidebar-wrapper">
-			      <div class="sidebar-heading">Administrateur</div>
+			      <div class="sidebar-heading">Fokotany {localStorage.getItem("admin")}</div>
 			      <div class="list-group list-group-flush">
 			        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
 			        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
@@ -75,7 +141,7 @@ class Dashboard extends Component {
 					  		
 					  	return(
 					  			<tr>
-							      <th scope="row">{user._id}</th>
+							      <th scope="row">{user._id}</th>Ambomirary
 							      <td><img width="100"src={user.image}/></td>
 							      <td>{user.nom}</td>
 							      <td>{user.prenom}</td>
@@ -95,6 +161,9 @@ class Dashboard extends Component {
 			    
 
   </div>
+
+		</div>
+			
 
 		)
 	}

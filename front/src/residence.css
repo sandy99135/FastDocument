@@ -9,6 +9,11 @@
     display: none;
 
 }
+.succes{
+	display:none;
+	justify-content: center;
+	align-items: center;
+}
 .residence h3{
  text-align: center;
  font-size: 30px;

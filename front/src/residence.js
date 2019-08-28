@@ -29,13 +29,17 @@ import  "dom-to-image/dist/dom-to-image.min.js"
           return true;
         }
       };
-      domtoimage.toPng(document.querySelector(".residence")).then(function (dataUrl) {
+      domtoimage.toPng(document.querySelector(".inscription2")).then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
         console.log(dataUrl)
         var imdata=dataUrl
         doc.addImage(imdata, 'PNG', 15, 40, 180, 160);
         doc.save("datauri.pdf");
+        document.querySelector(".succes").style.display="flex"
+        document.querySelector(".residence").style.display="none"
+
+
         // document.querySelector(".inscription2").innerHTML+=` <img src={dataUrl}/>`
         // document.body.appendChild(img);
     }).catch(function (error) {
@@ -71,6 +75,7 @@ import  "dom-to-image/dist/dom-to-image.min.js"
                       </div>
                 </form>   
               </div>
+               <div className="succes"> <h2 className="text-success">Creation de PDF reussie</h2></div>
             </div> 
 
       )
