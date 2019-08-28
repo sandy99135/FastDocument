@@ -23,10 +23,12 @@
      this.upload= this.upload.bind(this)
   }
     componentDidMount(){
+      
       axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
       this.setState({src:res.data.image})
     })
   }
+
   upload(e){
     e.preventDefault()
    const data = new FormData();
@@ -41,51 +43,7 @@
     })
   }
   render() {
-     var video = document.getElementById("video");
-     console.log( document.getElementById("video"))
-      function play(e){
-        e.preventDefault()
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
- navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
- video.srcObject = stream;
- video.play();
- });
-      }
-}
- function clone(e){
-  e.preventDefault()
-    var canvas1 = document.getElementById('cvs').getContext('2d');
-    canvas1.drawImage(video, 0,0, 150, 112);
-    var base64=document.getElementById('cvs').toDataURL("image/png"); //l'image au format base 64
-    console.log(base64);
-     document.getElementById('tar').value='';
-    document.getElementById('tar').value=base64;
-    const data = new FormData();
-    data.append('base', document.getElementById('tar').value);
-      axios.post("http://localhost:8080/photocapture/"+ localStorage.getItem("_id"),data).
-    then(res=>{
-      console.log(res.data)
-       axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
-      this.setState({src:res.data.image})
-    })
-    })
-   
-  }
 
-  // window.onload = init;
-
-function stop(e) {
-  e.preventDefault()
-  var stream = video.srcObject;
-  var tracks = stream.getTracks();
-
-  for (var i = 0; i < tracks.length; i++) {
-    var track = tracks[i];
-    track.stop();
-  }
-
-  video.srcObject = null;
-}
     return(
           <div className="photo">
                 <div class=" inscription5">
@@ -94,26 +52,60 @@ function stop(e) {
                   <a onClick={()=>{this.setState({switch:false})}}  class="list-group-item list-group-item-action bg-light">Uploader un fichier</a>
                   <a onClick={()=>{this.setState({switch:true})}} class="list-group-item list-group-item-action bg-light">Prendre une photo</a>
                    </div>
-                   {this.state.switch ? (<div id="upload">
+                   {this.state.switch ? (<div id="capture">
+                   
+                   <video id="video" className="video"width="200" height="200" autoplay/>
+                  <canvas id="cvs" height='150' width='150'></canvas>
+               
+                 <form>
+                   <input type="hidden" id='tar' />
+                   <button onClick={(e)=>{
+                     e.preventDefault()
+                     let video = document.querySelector(".video");
+                     console.log(video   )
+                       if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                   navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                   video.srcObject = stream;
+                   video.play();
+                   });
+                   }}}>play</button>
+                   <button onClick={(e)=>{
+                             e.preventDefault()
+                             var video = document.getElementById("video");
+                             console.log( document.getElementById("video"))
+                               var canvas1 = document.getElementById('cvs').getContext('2d');
+                               canvas1.drawImage(video, 0,0, 150, 112);
+                               var base64=document.getElementById('cvs').toDataURL("image/png"); //l'image au format base 64
+                               console.log(base64);
+                               document.getElementById('tar').value='';
+                               document.getElementById('tar').value=base64;
+                               const data = new FormData();
+                               data.append('base', document.getElementById('tar').value);
+                                 axios.post("http://localhost:8080/photocapture/"+ localStorage.getItem("_id"),data).
+                               then(res=>{
+                                 console.log(res.data)
+                                 axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
+                                 this.setState({src:res.data.image})
+                               })
+                               })
+                             
+
+                   }
+            } >photo</button>
+
+                 </form>   
+               </div>):
+                   ( <div id="upload">
                     <div className="apercu">
-                      <img width="100"src={this.state.src}/>
+                      <img width="100"src="http://localhost:8080/public/init.jpg"/>
                     </div>
                     <form>
                         <label for="name">Uploader votre photo</label><br/><input id="image" ref={(ref) => { this.uploadInput = ref; }}type="file"/>
                         <button className=" fermer btn-danger"onClick={this.upload}>Uploader</button>
                     </form>   
-                  </div>):( <div id="capture">
-                    <div className="apercu">
-                      <video id="video" width="200" height="200" autoplay/>
-                      // <canvas id="cvs" height='150' width='150'></canvas>
-                    </div>
-                    <form>
-                      <input type="hidden" id='tar' />
-                      <button onClick={play} >play</button>
-                      <button onClick={clone} >photo</button>
-                      <button onClick={stop} >arreter</button>
-                    </form>   
                   </div>)}
+                  
+                   
                   
                   
                

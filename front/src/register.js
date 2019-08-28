@@ -29,6 +29,12 @@ import React, { Component } from "react";
     this.setState({ [e.target.name]: e.target.value });
     
   }
+//   componentDidMount(){
+      
+//     axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
+//     this.setState({src:res.data.image})
+//   })
+// }
   handleSubmit(e){
     e.preventDefault()
    const data = new FormData();
@@ -45,12 +51,22 @@ import React, { Component } from "react";
      axios.post("http://localhost:8080/register",data).
     then(res=>{
       console.log(res.data)
-      localStorage.setItem("_id",res.data._id)
+      if(res.data=='pseudo non disponible essayer un autre' ){
+        document.getElementById("ereur").innerHTML="nom d' utilisateur non disponible essayer un autre"
+      }
+       else if( res.data.password_confirm =='Password and Confirm Password must match'){
+        document.getElementById("ereur").innerHTML="les 2mots de passes ne sont pas identiques"
+      }
+      else{
+        document.querySelector(".register").style.display="none"
+        document.querySelector(".photo").style.display="block"
+        document.querySelector(".photo").style.top="0"
+        document.querySelector(".inscription5").style.display="block"
+        localStorage.setItem("_id",res.data._id)
+      }
+     
     })
-    document.querySelector(".register").style.display="none"
-    document.querySelector(".photo").style.display="block"
-    document.querySelector(".photo").style.top="0"
-    document.querySelector(".inscription5").style.display="block"
+   
   }
   render() {
     
@@ -68,9 +84,10 @@ import React, { Component } from "react";
                     <label for="name">Votre numero telephone</label><br/><input placeholder="numero telephone" onChange={this.handleChange} value={this.state.value} name="telephone" type="number"/>
                     <label for="name">Votre pseudo </label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo" />
                     <label for="name">Mot de passe  </label><br/><input placeholder="Mot de passe " type="password" onChange={this.handleChange} value={this.state.value} name="password" />
-                    <label for="name">Confirmer mot de passe</label><br/><input placeholder="Confirmer mot de passe " type="password" onChange={this.handleChange} value={this.state.value} name="password_confirm" />
-                     <button className=" fermer btn-danger" onClick={this.handleSubmit}>S inscrire</button>
-                      <button className=" hiditra btn-danger" onClick={(e)=> { 
+                    <label for="name">Confirmer mot de passe</label><br/><input placeholder="Confirmer mot de passe " type="password" onChange={this.handleChange} value={this.state.value} name="password_confirm" /><br/>
+                    <span className="text-danger"id="ereur"></span>
+                    <button className=" fermer btn-danger" onClick={this.handleSubmit}>S inscrire</button>
+                    <button className=" hiditra btn-danger" onClick={(e)=> { 
                       e.preventDefault()
                       document.querySelector(".register").style.display="none"}}> Retour</button>
                 </form>   

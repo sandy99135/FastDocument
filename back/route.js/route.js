@@ -27,27 +27,19 @@ router.post('/register', function(req, res) {
             id=parseInt(use[use.length-1]._id+1)
         }
         if(!isValid) {
-            return res.status(400).json(errors);
+            return res.status(200).json(errors);
         }
-        // console.log(req.files);
-        // let imageFile1 = req.files.image;
-                
-                
-        //           imageFile1.mv(`${__dirname}/public/${id}.jpg`, function(err) {
-        //             if (err) {
-        //               return res.status(500).send("err");
-        //             }
-        //                           })
          Individu.findOne({
             pseudo: req.body.pseudo
         }).then(user => {
             if(user) {
-                return res.status(400).json({
-                    pseudo: 'pseudo non disponible essayer un autre'
-                });
+                console.log(user)
+              res.send(
+                     'pseudo non disponible essayer un autre'
+                );
             }
             else {
-                 const avatar = gravatar.url(req.body.email, {
+                 const avatar = gravatar.url(req.body.pseudo, {
                     s: '200',
                     r: 'pg',
                     d: 'mm'
@@ -71,7 +63,9 @@ router.post('/register', function(req, res) {
                     if(err) console.error('There was an error', err);
                     else {
                         bcrypt.hash(individu.password, salt, (err, hash) => {
-                            if(err) console.error('There was an error', err);
+                            if(err){
+                                res.send("les 2 mots de passes ne sont pas identiques")
+                            } 
                             else {
                                 individu.password = hash;
                                 individu
@@ -111,17 +105,14 @@ router.post("/photo/:_id",(req,res)=>{
     })
 })
 })
-router.post("/photocapture/:_id",(req,res)=>{
-    Individu.findById(req.params._id).then(use=>{
-      
-                 
+router.post("/photocapture/:_id",(req,res)=>{           
         Individu.findOneAndUpdate({_id:req.params._id}, {
            
             image:req.body.base
         
         },{new:true}).then(upd=>res.send(upd)
         )
-    })
+   
 
 })
 router.post('/login', (req, res) => {

@@ -36,16 +36,8 @@ module.exports = function validateRegisterInput(data) {
         errors.birthday = 'birthday is required';
     }
 
-    if(!Validator.isLength(data.password, {min: 6, max: 30})) {
-        errors.password = 'Password must have 6 chars';
-    }
-
     if(Validator.isEmpty(data.password)) {
         errors.password = 'Password is required';
-    }
-
-    if(!Validator.isLength(data.password_confirm, {min: 6, max: 30})) {
-        errors.password_confirm = 'Password must have 6 chars';
     }
 
     if(!Validator.equals(data.password, data.password_confirm)) {
