@@ -29,14 +29,15 @@ router.post('/register', function(req, res) {
         if(!isValid) {
             return res.status(400).json(errors);
         }
-        let imageFile1 = req.files.image;
-                console.log(req.files);
+        // console.log(req.files);
+        // let imageFile1 = req.files.image;
                 
-                  imageFile1.mv(`${__dirname}/public/${id}.jpg`, function(err) {
-                    if (err) {
-                      return res.status(500).send("err");
-                    }
-                                  })
+                
+        //           imageFile1.mv(`${__dirname}/public/${id}.jpg`, function(err) {
+        //             if (err) {
+        //               return res.status(500).send("err");
+        //             }
+        //                           })
          Individu.findOne({
             pseudo: req.body.pseudo
         }).then(user => {
@@ -60,7 +61,7 @@ router.post('/register', function(req, res) {
                     ancquartier: req.body.ancquartier,
                     nouvquartier: req.body. nouvquartier,
                     adresse: req.body.adresse,
-                    image:id+".jpg",
+                    image:"http://localhost:8080/public/init.jpg",
                     telephone: req.body.telephone,
                     password: req.body.password,
                     avatar
@@ -91,7 +92,38 @@ router.post('/register', function(req, res) {
 
    
 });
+router.post("/photo/:_id",(req,res)=>{
+    Individu.findById(req.params._id).then(use=>{
+        let imageFile1 = req.files.image;
+                
+                
+                  imageFile1.mv(`${__dirname}/public/${req.params._id}.jpg`, function(err) {
+                    if (err) {
+                      return res.status(500).send("err");
+                    }
+                 
+        Individu.findOneAndUpdate({_id:req.params._id}, {
+           
+            image:"http://localhost:8080/public/"+req.params._id+".jpg"
+        
+        },{new:true}).then(upd=>res.send(upd)
+        )
+    })
+})
+})
+router.post("/photocapture/:_id",(req,res)=>{
+    Individu.findById(req.params._id).then(use=>{
+      
+                 
+        Individu.findOneAndUpdate({_id:req.params._id}, {
+           
+            image:req.body.base
+        
+        },{new:true}).then(upd=>res.send(upd)
+        )
+    })
 
+})
 router.post('/login', (req, res) => {
 
     const { errors, isValid } = validateLoginInput(req.body);
@@ -155,6 +187,21 @@ router.get('/user',(req,res)=>{
 router.get('/user/:_id',(req,res)=>{
    Individu.findById(req.params._id).then(user=>res.send(user))
 })
+
+       router.get('/public/:image',(req,res)=>{
+      var fs =require("fs")
+      var image=fs.readFileSync("./route.js/public/"+req.params.image
+        )
+      res.send(image)
+        })
+       router.get('/public/init.jpg',(req,res)=>{
+      var fs =require("fs")
+      var image=fs.readFileSync("./route.js/public/init.jpg"
+        )
+      res.send(image)
+        })
+
+
 router.post("/cuisinier/:_id",(req, res) => {
     res.setHeader('Content-type', 'text/plain');
     Cuisinier.findById(req.params._id).then(user=>{

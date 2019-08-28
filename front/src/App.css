@@ -1,9 +1,4 @@
-/* .info{
-    display:flex;
-}
-.info span{
-    margin-top: 3px;
-} */
+
 .formulaire{
     position :relative;
     margin:auto;
@@ -11,4 +6,8 @@
 .residence{
     position :relative;
     margin:auto;
+}
+#google-map{
+	position:absolute;
+	top:0;
 }

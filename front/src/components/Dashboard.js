@@ -72,10 +72,11 @@ class Dashboard extends Component {
 					  {this.state.habitant.length > 0 ? (this.state.habitant.filter(search=>search.nom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1||
 					  	search.prenom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || 
 					  	search.adresse.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1).map(user=>{
+					  		
 					  	return(
 					  			<tr>
 							      <th scope="row">{user._id}</th>
-							      <td>Photo</td>
+							      <td><img width="100"src={user.image}/></td>
 							      <td>{user.nom}</td>
 							      <td>{user.prenom}</td>
 							      <td>{user.adresse}</td>

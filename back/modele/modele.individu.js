@@ -44,6 +44,10 @@ const IndividuSchema = new Schema({
     avatar: {
         type: String
     },
+     base: {
+        type: String
+    },
+
 
     
 });
