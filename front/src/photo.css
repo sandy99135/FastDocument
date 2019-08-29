@@ -9,6 +9,9 @@
     display: none;
 
 }
+#terminer{
+	display:none,
+}
 .photo #choix{
 	display: flex;
 }

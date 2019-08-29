@@ -29,12 +29,14 @@ import React, { Component } from "react";
     this.setState({ [e.target.name]: e.target.value });
     
   }
-//   componentDidMount(){
-      
-//     axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
-//     this.setState({src:res.data.image})
-//   })
-// }
+  componentDidMount(){
+    axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
+      this.setState({profil:res.data})
+       this.setState({username:res.data.nom})
+      this.setState({connect: localStorage.getItem("connect")})
+       console.log(this.state.connect)
+    })
+  }
   handleSubmit(e){
     e.preventDefault()
    const data = new FormData();

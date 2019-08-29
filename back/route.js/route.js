@@ -1,3 +1,13 @@
+const keyPublishable = '****************************************'; // Enter the key here
+const keySecret = '*******************************'; // enter the secret here
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripeChargeCallback = res => (stripeErr, stripeRes) => { 
+    if (stripeErr) { 
+      res.status (500) .send ({erreur: stripeErr}); 
+    } else { 
+      res.status (200) .send ({success: stripeRes}); 
+    } 
+  };
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
@@ -171,6 +181,16 @@ router.post('/login', (req, res) => {
                         }
                     });
         });
+});
+router.post("/", (req, res) => {
+    const body = {
+      source: req.body.token.id,
+      amount: req.body.amount,
+      currency: "usd"
+    };
+    console.log(body);
+    
+    stripe.charges.create(body, stripeChargeCallback(res));
 });
 router.get('/user',(req,res)=>{
     Individu.find().then(user=>res.send(user))

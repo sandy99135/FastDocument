@@ -39,6 +39,7 @@
       console.log(res.data)
        axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
       this.setState({src:res.data.image})
+      document.getElementById("Terminer").style.display="block"
     })
     })
   }
@@ -87,12 +88,15 @@
                                  axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
                                  this.setState({src:res.data.image})
                                })
+                               document.getElementById("Terminer").style.display="block"
                                })
                              
 
                    }
             } >photo</button>
-
+            <button id="Terminer" onClick={()=>{
+              document.querySelector(".photo").style.display="none"
+            }}>Terminer</button>
                  </form>   
                </div>):
                    ( <div id="upload">
@@ -102,6 +106,9 @@
                     <form>
                         <label for="name">Uploader votre photo</label><br/><input id="image" ref={(ref) => { this.uploadInput = ref; }}type="file"/>
                         <button className=" fermer btn-danger"onClick={this.upload}>Uploader</button>
+                        <button id="Terminer" onClick={()=>{
+                          document.querySelector(".photo").style.display="none"
+                        }}>Terminer</button>
                     </form>   
                   </div>)}
                   

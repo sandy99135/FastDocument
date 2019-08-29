@@ -46,11 +46,10 @@ class Dashboard extends Component {
     	password:"Ambomirary"
     }
     ] 
-    const individu= {
-                    nom: this.state.nom,
-                    quartier:this.state.quartier,
-                    password: this.state.password
-                }
+		axios.get("http://localhost:8080/user").then(user=>{
+			console.log(user.data)
+			this.setState({habitant:user.data})
+		})
    var tab=[]
      for(let i=0;i<admin.length;i++){
      	if(admin[i].nom==this.state.nom && admin[i].quartier==this.state.quartier && admin[i].password==this.state.password){
@@ -83,8 +82,9 @@ class Dashboard extends Component {
                        <span className=" text-danger erreurpassword "></span><br/>
                      <button className=" fermer btn-danger"onClick={this.handleConnect}>Connecter</button>
                       <button className=" hiditra btn-danger" onClick={(e)=> { 
-                      e.preventDefault()
-                      document.querySelector(".connect").style.display="none"}}> Hiverina</button>
+											e.preventDefault()
+											window.location="/"
+                      }}> Hiverina</button>
                 </form>   
               </div>
             </div> 
@@ -92,19 +92,21 @@ class Dashboard extends Component {
 			    <div class="bg-light border-right" id="sidebar-wrapper">
 			      <div class="sidebar-heading">Fokotany {localStorage.getItem("admin")}</div>
 			      <div class="list-group list-group-flush">
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+			        <a href="#" class="list-group-item list-group-item-action bg-light">List des habitants</a>
+			        <a href="#" class="list-group-item list-group-item-action bg-light">A propos</a>
 			        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+							<a href="#" onClick={()=>{
+								localStorage.removeItem("admin")
+								document.querySelector(".admin").style.display="block"
+
+						}} class="list-group-item list-group-item-action bg-light">Deconnexion</a>
 			      </div>
 			    </div>
 			   
 			    <div id="page-content-wrapper">
 
 			      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-			       <h3>Liste des habitants</h3>
+
 
 			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			          <span class="navbar-toggler-icon"></span>
@@ -135,7 +137,7 @@ class Dashboard extends Component {
 					    </tr>
 					  </thead>
 					  <tbody>
-					  {this.state.habitant.length > 0 ? (this.state.habitant.filter(search=>search.nom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1||
+					  {this.state.habitant.length > 0 ? (this.state.habitant.filter(quatier=>quatier.nouvquartier===localStorage.getItem("admin")).filter(search=>search.nom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1||
 					  	search.prenom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || 
 					  	search.adresse.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1).map(user=>{
 					  		

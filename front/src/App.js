@@ -47,7 +47,6 @@ class App extends Component {
  
   handleConnect(e){
     e.preventDefault()
-    console.log("connect")
     const individu= {
                     pseudo: this.state.pseudo,
                     password: this.state.password
@@ -79,32 +78,50 @@ class App extends Component {
    
     
     })
-     
-  
+    
   }
+  componentDidMount(){
+    axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
+      this.setState({profil:res.data})
+       this.setState({username:res.data.nom})
+      this.setState({connect: localStorage.getItem("connect")})
+       console.log(this.state.connect)
+    })
+  }
+
    handleConnectRes(e){
     e.preventDefault()
-    console.log("connect")
     const individu= {
                     pseudo: this.state.pseudo,
                     password: this.state.password
                 }
     axios.post("http://localhost:8080/login",individu).
     then(res=>{
+      console.log(res.data)
+       if(res.data=='User not found'){
+        document.querySelector(".erreuruser2").innerHTML="utilisateur introuvable"  
+         }
+      else if(res.data!=='User not found'&& res.data=='Incorrect Password'){
+        document.querySelector(".erreuruser2").innerHTML="" 
+        document.querySelector(".erreurpassword2").innerHTML="mot de passe incorrect"  
+         }
+     if(res.data!=='Incorrect Password' && res.data!=='User not found' ){
+       document.querySelector(".erreurpassword").innerHTML="" 
     localStorage.setItem("id",res.data.id)
     localStorage.setItem("nom",res.data.nom)
     localStorage.setItem("connect",res.data.success)
     axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
-    console.log(res.data)
-    this.setState({profil:res.data})
-    this.setState({connect: localStorage.getItem("connect")})
-    })
+      this.setState({profil:res.data})
+      this.setState({connect: localStorage.getItem("connect")})
+      this.setState({username:res.data.nom})
+      console.log(this.state.connect)
     })
      this.setState({connect:true})
-     document.querySelector(".connect").style.display="none"
-     document.querySelector(".residence").style.display="block"
-     document.querySelector(".residence").style.top="0"
-     document.querySelector(".inscription2").style.display="block"
+    document.querySelector(".connect2").style.display="none"
+      }
+   
+    
+    })
    
   }
   handleDeconnect(e){
@@ -154,9 +171,6 @@ class App extends Component {
           <div class="menu2 container" >
              <div class=" row1 " >
                   <div class="  menu" >
-                  <h3> Acceuil</h3>
-                  </div>
-                  <div class="  menu" >
                     <h3 onClick={function(){
                       if(localStorage.getItem("nom")==null){
                         document.querySelector(".connect2").style.display="block"
@@ -189,9 +203,6 @@ class App extends Component {
                    }}> Fisoratana Anarana</h3>
                   </div>
                   <div class="  menu" >
-                    <h3>Administrateur</h3>
-                  </div>
-                  <div class="  menu" >
                     <h3>Carte</h3>
                   </div>
                    <div class="  menu" >
@@ -204,10 +215,10 @@ class App extends Component {
               <div class=" inscription1">
                 <form>
                     <h3>Connection</h3>
-                    <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/>
-                     <span className=" text-danger erreuruser "></span><br/>
-                    <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" />
-                       <span className=" text-danger erreurpassword "></span><br/>
+                    <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/><br/>
+                    <span className=" text-danger erreuruser "></span><br/>
+                    <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" /><br/>
+                    <span className=" text-danger erreurpassword "></span><br/>
                      <button className=" fermer btn-danger"onClick={this.handleConnect}>Connecter</button>
                       <button className=" hiditra btn-danger" onClick={(e)=> { 
                       e.preventDefault()
@@ -219,14 +230,14 @@ class App extends Component {
               <div class=" inscription3">
                 <form>
                     <h3>Connection</h3>
-                    <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/>
-                    <span className=" text-danger erreuruser "></span>
-                    <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" />
-                     <span className=" text-danger erreurpassword "></span>
+                    <label for="name">Votre pseudo</label><br/><input placeholder="Entrer votre pseudo " onChange={this.handleChange} value={this.state.value} name="pseudo"/><br/>
+                    <span className=" text-danger erreuruser2"></span><br/>
+                    <label for="name">Mot de passe </label><br/><input placeholder="Mot de passe" type="password" onChange={this.handleChange} value={this.state.value} name="password" /><br/>
+                     <span className=" text-danger erreurpassword2 "></span><br/>
                      <button className=" fermer btn-danger"onClick={this.handleConnectRes}>Connecter</button>
                       <button className=" hiditra btn-danger" onClick={(e)=> { 
                       e.preventDefault()
-                      document.querySelector(".connect").style.display="none"}}> Hiverina</button>
+                      document.querySelector(".connect2").style.display="none"}}> Hiverina</button>
                 </form>   
               </div>
             </div> 

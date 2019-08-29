@@ -9,19 +9,36 @@
     display: none;
 
 }
+#dernier{
+	margin-bottom: 10px;
+}
+#pdfbouton{
+	position: relative;
+	width:800px;
+    margin:0 auto;
+    
+    
+}
 .succes{
 	display:none;
 	justify-content: center;
 	align-items: center;
 }
-.residence h3{
+.residence h4{
  text-align: center;
- font-size: 30px;
+ text-transform: uppercase;
+ line-height: 2px;
+ font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.residence h5{
+	text-transform: uppercase;
+	line-height: 2px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+   }
 .inscription2{
     position: relative;
-	width:600px;
-    margin:0 auto;
+	width:800px;
+    margin:10px auto;
     padding:20px;
     font-family:'Open Sans',sans-serif; 
     background:rgba(254,254,254,0.8);
@@ -42,6 +59,12 @@
      border-bottom: 2px solid rgba(253, 253, 253, 0.8);
      transition: 0.5s;
 }
+ .row{
+	width:400px;
+}
+.info{
+	width:400px;
+}
 .residence .inscription2 label{
 	color:black;
 	font-size: 15px;
@@ -60,7 +83,7 @@
 	right:0;
 }
 @media only screen and (max-width: 600px) {
-	.connect{
+	.residence{
 	position:absolute;
 	top:0;
 	right: 0px;
@@ -82,6 +105,13 @@
     color: rgb(0, 2, 3);
 
 }
+#pdfbouton{
+	position: relative;
+	width:200px;
+    margin:0 auto;
+    
+    
+}
 .residence .inscription2 input{
 	 display: block;
      width:100%;
@@ -95,10 +125,16 @@
      border-bottom: 2px solid rgba(253, 253, 253, 0.8);
      transition: 0.5s;
 }
-.residence h3{
+.residence h4{
  text-align: center;
  font-size: 15px;
 }
+.residence h5{
+	text-transform: uppercase;
+	line-height: 2px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 15px;
+   }
 .residence .inscription2 label{
 	color:black;
 	font-size: 10px;
