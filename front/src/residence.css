@@ -3,85 +3,12 @@
 	top:0;
 	right: 0px;
 	width: 100%;
-	height:700px;
+	height:1000px;
 	background:rgba(0,0,0,0.8);
 	z-index: 2;
     display: none;
+}
 
-}
-#dernier{
-	margin-bottom: 10px;
-}
-#pdfbouton{
-	position: relative;
-	width:800px;
-    margin:0 auto;
-    
-    
-}
-.succes{
-	display:none;
-	justify-content: center;
-	align-items: center;
-}
-.residence h4{
- text-align: center;
- text-transform: uppercase;
- line-height: 2px;
- font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.residence h5{
-	text-transform: uppercase;
-	line-height: 2px;
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-   }
-.inscription2{
-    position: relative;
-	width:800px;
-    margin:10px auto;
-    padding:20px;
-    font-family:'Open Sans',sans-serif; 
-    background:rgba(254,254,254,0.8);
-    font-size: 15px;
-    color: rgb(0, 2, 3);
-
-}
-.residence .inscription2 input{
-	 display: block;
-     width:100%;
-     height:20px ;
-     margin: 5px auto;
-     text-decoration: none;
-     font-size: 18px;
-     color: rgba(3, 0, 0, 0.8);
-     background: rgba(202, 59, 59, 0);
-     border: rgba(202, 59, 59, 0);
-     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
-     transition: 0.5s;
-}
- .row{
-	width:400px;
-}
-.info{
-	width:400px;
-}
-.residence .inscription2 label{
-	color:black;
-	font-size: 15px;
-	font-weight: bold;
-}
-.residence .inscription2 input:focus{
-	border-bottom: 2px solid rgb(231, 31, 31);
-}
-.fermer{
-	margin-top: 10px;
-	margin-right:120px;
-	left:0;
-}
-.hiditra{
-	margin-top: 10px;
-	right:0;
-}
 @media only screen and (max-width: 600px) {
 	.residence{
 	position:absolute;

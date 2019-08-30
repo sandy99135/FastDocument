@@ -9,6 +9,41 @@
     display: none;
 
 }
+#camera{
+	position:absolute;
+	top:140px;
+	z-index: 3;
+	font-size: 180px;
+	line-height: 180px;
+	text-align: center;
+	width:200px;
+	height:200px;
+	color:#949494;
+	
+}
+#cvs{
+	position:absolute;
+	top:140px;
+	font-size: 180px;
+	line-height: 180px;
+	text-align: center;
+	width:200px !important;
+	height:200px !important;
+	color:#949494;
+	
+}
+#camera:hover{
+	cursor:pointer;
+}
+#camparent{
+	font-size: 180px;
+	line-height: 180px;
+	text-align: center;
+	width:200px;
+	height:200px;
+	border:solid 1px black;
+}
+
 #terminer{
 	display:none,
 }
@@ -111,6 +146,121 @@
 	font-weight: bold;
 }
 .photo .inscription5 input:focus{
+	border-bottom: 2px solid rgb(231, 31, 31);
+}
+.fermer{
+	margin-top: 10px;
+	margin-right:80px;
+	
+}
+.hiditra{
+	margin-top: 10px;
+}
+}
+
+
+.connect{
+	position:absolute;
+	top:0;
+	right: 0px;
+	width: 100%;
+	height:700px;
+	background:rgba(0,0,0,0.8);
+	z-index: 2;
+    display: none;
+
+}
+.connect h3{
+ text-align: center;
+ font-size: 30px;
+}
+.inscription1{
+    position: relative;
+	width:400px;
+    margin:0 auto;
+    padding:20px;
+    font-family:'Open Sans',sans-serif; 
+    background:rgba(254,254,254,0.8);
+    font-size: 15px;
+    color: rgb(0, 2, 3);
+
+}
+.connect .inscription1 input{
+	 display: block;
+     width:100%;
+     height:20px ;
+     margin: 5px auto;
+     text-decoration: none;
+     font-size: 18px;
+     color: rgba(3, 0, 0, 0.8);
+     background: rgba(202, 59, 59, 0);
+     border: rgba(202, 59, 59, 0);
+     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
+     transition: 0.5s;
+}
+.connect .inscription1 label{
+	color:black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.connect .inscription1 input:focus{
+	border-bottom: 2px solid rgb(231, 31, 31);
+}
+.fermer{
+	margin-top: 10px;
+	margin-right:120px;
+	left:0;
+}
+.hiditra{
+	margin-top: 10px;
+	right:0;
+}
+@media only screen and (max-width: 600px) {
+	.connect{
+	position:absolute;
+	top:0;
+	right: 0px;
+	width: 100%;
+	height:1600px;
+	background:rgba(0,0,0,0.8);
+	z-index: 2;
+    display: none;
+
+}
+.inscription1{
+    position: relative;
+	width:200px;
+    margin:0 auto;
+    padding:10px;
+    font-family:'Open Sans',sans-serif; 
+    background:rgba(254,254,254,0.8);
+    font-size: 10px;
+    color: rgb(0, 2, 3);
+
+}
+.connect .inscription input{
+	 display: block;
+     width:100%;
+     height:10px ;
+     margin: 5px auto;
+     text-decoration: none;
+     font-size: 12px;
+     color: rgba(3, 0, 0, 0.8);
+     background: rgba(202, 59, 59, 0);
+     border: rgba(202, 59, 59, 0);
+     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
+     transition: 0.5s;
+}
+.connect h3{
+ text-align: center;
+ font-size: 15px;
+}
+.connect .inscription1 label{
+	color:black;
+	font-size: 10px;
+	font-weight: bold;
+}
+.connect .inscription1 input:focus{
 	border-bottom: 2px solid rgb(231, 31, 31);
 }
 .fermer{

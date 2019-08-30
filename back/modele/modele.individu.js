@@ -20,6 +20,10 @@ const IndividuSchema = new Schema({
         type:  String,
         
     },
+     lieu: {
+        type:  String,
+        
+    },
    ancquartier: {
         type: String,
     },

@@ -1,6 +1,6 @@
 const keyPublishable = '****************************************'; // Enter the key here
 const keySecret = '*******************************'; // enter the secret here
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")("sk_test_szr6vR2bPleLHXjG8FprmCuR00aMNKuw2a");
 const stripeChargeCallback = res => (stripeErr, stripeRes) => { 
     if (stripeErr) { 
       res.status (500) .send ({erreur: stripeErr}); 
@@ -60,6 +60,7 @@ router.post('/register', function(req, res) {
                     prenom: req.body.prenom,
                     pseudo: req.body.pseudo,
                     birthday: req.body.birthday,
+                    lieu: req.body.lieu,
                     ancquartier: req.body.ancquartier,
                     nouvquartier: req.body. nouvquartier,
                     adresse: req.body.adresse,
@@ -164,6 +165,7 @@ router.post('/login', (req, res) => {
                                         adresse: user.adresse,
                                         telephone: user.telephone,
                                         birthday: user.birthday,
+                                        lieu: user.lieu,
                                         nouvquartier: user.nouvquartier,
                                         success: true,
                                         token: `Bearer ${token}`

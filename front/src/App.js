@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
 import jsPDF from 'jspdf';
 import $ from 'jquery'
 import domtoimage from 'dom-to-image';
@@ -13,11 +13,13 @@ import "./residence.css";
 import  "dom-to-image/dist/dom-to-image.min.js"
 import { saveAs } from 'file-saver'
 import Photo from "./photo"
+import Fifindramonina from "./fifindrana"
 import Residence from "./residence"
 import Register from "./register"
 import Dashboard from "./components/Dashboard"
+import Dashboardgrand from "./components/admin"
 import MapContainer from "./components/map"
-// import "./font-awesome.min.css"
+import "dom-to-image/bower_components/fontawesome/css/font-awesome.min.css"
 
 // Check for token to keep user logged in
 
@@ -135,17 +137,21 @@ class App extends Component {
   render() {
 
    let sty={
+    width:"100px",
+    color:"white"
+   }
+   let styly={
     color:"white"
    }
    let styl={
-    background:"linear-gradient(40deg,#c700fa,#eb2af3,#d793c7)"
+    background:"linear-gradient(40deg,#DD2880,#eb2af3)"
    }
     return (
     <Router>
       <div>
           <div class=" navbar container-fluid" style={styl}>
             <div class="logo">
-                <i class="fa fa-xing" style={sty} ></i>
+                <i class="fa fa-music" style={sty} ></i>
                 <span class="zion">Service Fokotany</span> 
                 
             </div>
@@ -153,7 +159,7 @@ class App extends Component {
               {this.state.connect ? (
              <div className="user"> 
              <select> 
-              <option> {localStorage.getItem("nom")} </option> 
+              <option style={styly}> {localStorage.getItem("nom")} </option> 
               <option>Parametre</option> 
               <option onClick={(e)=> { 
                       e.preventDefault()
@@ -170,8 +176,7 @@ class App extends Component {
           <input type="color" id="couleur"/>
           <div class="menu2 container" >
              <div class=" row1 " >
-                  <div class="  menu" >
-                    <h3 onClick={function(){
+                  <div class="  menu" onClick={function(){
                       if(localStorage.getItem("nom")==null){
                         document.querySelector(".connect2").style.display="block"
                         document.querySelector(".connect2").style.top="0"
@@ -179,33 +184,56 @@ class App extends Component {
                       }else{
                         document.querySelector(".residence").style.display="block"
                         document.querySelector(".residence").style.top="0"
-                        document.querySelector(".inscription2").style.display="block"
+                        document.querySelector(".block").style.display="block"
                         
                       }
                    
                     
-                   }}> Fanamarinam-ponenana</h3>
+                   }} >
+                  <i class=" icone fa fa-sticky-note" ></i>
+                    <h3 > Residence</h3>
                   </div>
-                  <div class="  menu" >
-                   <h3> Fifindramonina</h3>
+                  <div class="  menu" onClick={function(){
+                      if(localStorage.getItem("nom")==null){
+                        document.querySelector(".connect2").style.display="block"
+                        document.querySelector(".connect2").style.top="0"
+                        document.querySelector(".inscription3").style.display="block"
+                      }else{
+                        document.querySelector(".residence").style.display="block"
+                        document.querySelector(".residence").style.top="0"
+                        document.querySelector(".block").style.display="block"
+                        
+                      }
+                   
+                    
+                   }}>
+                   <i class=" icone fa fa-map" ></i>
+                   <h3 > Fifindramonina</h3>
                   </div>
-                  <div class=" menu" >
-                   <h3> Copie</h3>
-                  </div>
-              </div>
-              <div class=" row1 " >
-                  <div class=" menu" >
-                   <h3 onClick={function(){
-                    document.querySelector(".register").style.display="block"
+                  <div class=" menu" onClick={function(){
+                     if(localStorage.getItem("nom")==null){
+                     document.querySelector(".register").style.display="block"
                      document.querySelector(".register").style.top="0"
                      document.querySelector(".inscription").style.display="block"
+                     }
+                     else{
+                      document.querySelector(".deconnect").style.display="block"
+                     }
+                   
                     
-                   }}> Fisoratana Anarana</h3>
+                   }} >
+                  <i class=" icone fa fa-user-plus" ></i>
+                   <h3 > Fisoratana Anarana</h3>
                   </div>
-                  <div class="  menu" >
+              </div>
+
+              <div class=" row1 " >
+                  <div class="  menu" onClick={(e)=>window.location="/map"} >
+                    <i class=" icone fa fa-globe" style={sty} ></i>
                     <h3>Carte</h3>
                   </div>
                    <div class="  menu" >
+                   <i class=" icone fa fa-phone-square" style={sty} ></i>
                     <h3>Contact</h3>
                   </div>
               </div>
@@ -242,6 +270,7 @@ class App extends Component {
               </div>
             </div> 
             <Residence/>
+            <Fifindramonina/>
              <div className="deconnect">
               <div class=" inscription4">
                 <form>
@@ -254,6 +283,7 @@ class App extends Component {
               </div>
             </div>
             <Photo /> 
+            <Route path="/admin" component={Dashboardgrand}/>
             <Route path="/dashboard" component={Dashboard}/>
             <Route path="/map" component={MapContainer}/>
       </div>

@@ -12,6 +12,7 @@ import React, { Component } from "react";
       nom:"",
       prenom:"",
       birthday:"",
+      lieu:"",
       ancquartier:"",
       nouvquartier:"",
       adresse:"",
@@ -44,6 +45,7 @@ import React, { Component } from "react";
     data.append('prenom', this.state.prenom);
     data.append('password_confirm', this.state.password_confirm);
     data.append('birthday', this.state.birthday);
+    data.append('lieu', this.state.lieu);
     data.append('ancquartier', this.state.ancquartier);
     data.append('nouvquartier', this.state. nouvquartier);
     data.append('adresse', this.state.adresse);
@@ -60,11 +62,13 @@ import React, { Component } from "react";
         document.getElementById("ereur").innerHTML="les 2mots de passes ne sont pas identiques"
       }
       else{
+        localStorage.setItem("_id",res.data._id)
+        localStorage.setItem("image",res.data.image)
         document.querySelector(".register").style.display="none"
         document.querySelector(".photo").style.display="block"
         document.querySelector(".photo").style.top="0"
         document.querySelector(".inscription5").style.display="block"
-        localStorage.setItem("_id",res.data._id)
+       
       }
      
     })
@@ -79,7 +83,7 @@ import React, { Component } from "react";
                     <h3>Inscription</h3>
                     <label for="name">Nom</label><br/><input placeholder="Anarana" onChange={this.handleChange} value={this.state.value} name="nom" />
                     <label for="name">Prenom</label><br/><input placeholder="Fanampina anarana" onChange={this.handleChange} value={this.state.value} name="prenom" />
-                    <label for="name">Date et Lieu de naissance</label><br/><input placeholder="Date et Lieu de naissance"onChange={this.handleChange} value={this.state.value} name="birthday" />
+                    <label for="name">Date et Lieu de naissance</label><br/><input type="date"placeholder="Date et Lieu de naissance"onChange={this.handleChange} value={this.state.value} name="birthday" /><input placeholder=" Lieu de naissance"onChange={this.handleChange} value={this.state.value} name="lieu" />
                     <label for="name">Votre precedent quartier </label><br/><input placeholder="Fokotany nisy anao taloha  " onChange={this.handleChange} value={this.state.value} name="ancquartier" />
                     <label for="name">Votre nouveau quartier </label><br/><input placeholder="Fokotany hisoratanao anarana " onChange={this.handleChange} value={this.state.value} name="nouvquartier" />
                     <label for="name">Adresse</label><br/><input placeholder="Adresse" onChange={this.handleChange} value={this.state.value} name="adresse" />

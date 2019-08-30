@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
 import "./dashboard.css"
+import List from "./list"
+import Propos from "./propos"
 import axios from "axios"
 import "./admin.css";
 class Dashboard extends Component {
@@ -10,7 +13,9 @@ class Dashboard extends Component {
 			search:"",
 			nom:"",
 			password:"",
-			quartier:""
+			quartier:"",
+			list:true,
+			propos:false
 		}
 		this.searchChange= this.searchChange.bind(this)
 		this.handleChange= this.handleChange.bind(this)
@@ -69,7 +74,9 @@ class Dashboard extends Component {
   }
 	render(){
 		return(
-		<div>
+		<Router>
+			<div>
+
 			 <div className="admin">
               <div class=" inscription1">
                 <form>
@@ -88,13 +95,18 @@ class Dashboard extends Component {
                 </form>   
               </div>
             </div> 
+
+
 			<div class="d-flex" id="wrapper">
 			    <div class="bg-light border-right" id="sidebar-wrapper">
 			      <div class="sidebar-heading">Fokotany {localStorage.getItem("admin")}</div>
 			      <div class="list-group list-group-flush">
-			        <a href="#" class="list-group-item list-group-item-action bg-light">List des habitants</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">A propos</a>
-			        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+			        <Link to="/dashboard"><a  onClick={()=>{this.setState({list:true})
+
+						}}class="list-group-item list-group-item-action bg-light">List des habitants</a></Link>
+			        <Link to="/dashboard/propos"><a   onClick={()=>{this.setState({list:false})
+
+						}}class="list-group-item list-group-item-action bg-light">Statistiques</a></Link>
 							<a href="#" onClick={()=>{
 								localStorage.removeItem("admin")
 								document.querySelector(".admin").style.display="block"
@@ -102,69 +114,13 @@ class Dashboard extends Component {
 						}} class="list-group-item list-group-item-action bg-light">Deconnexion</a>
 			      </div>
 			    </div>
-			   
-			    <div id="page-content-wrapper">
+			 {this.state.list ? ( <List/>):(<Propos/>)}
+  			</div>
 
-			      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-
-
-			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			          <span class="navbar-toggler-icon"></span>
-			        </button>
-
-			        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-			            <li class="nav-item active">
-			              <input type="search" value={this.state.search} onChange={this.searchChange}/>
-			            </li>
-			            <li class="nav-item">
-			             <input type="submit" value="Chercher"/>
-			            </li>
-			          </ul>
-			        </div>
-			      </nav>
-
-			      <div class="container-fluid">
-			        <table class="table">
-					  <thead>
-					    <tr>
-					      <th scope="col">Id</th>
-					      <th scope="col">Photo</th>
-					      <th scope="col">Nom</th>
-					      <th scope="col">Prenom</th>
-					      <th scope="col">adresse </th>
-					      <th scope="col">Numero telephone</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  {this.state.habitant.length > 0 ? (this.state.habitant.filter(quatier=>quatier.nouvquartier===localStorage.getItem("admin")).filter(search=>search.nom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1||
-					  	search.prenom.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || 
-					  	search.adresse.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1).map(user=>{
-					  		
-					  	return(
-					  			<tr>
-							      <th scope="row">{user._id}</th>Ambomirary
-							      <td><img width="100"src={user.image}/></td>
-							      <td>{user.nom}</td>
-							      <td>{user.prenom}</td>
-							      <td>{user.adresse}</td>
-							      <td>{user.telephone}</td>
-					    		</tr>
-					  		)
-
-					  })) 
-
-					  	:""}
-					    
-					  </tbody>
-					</table>
-			      </div>
-			    </div>
-			    
-
-  </div>
-
+  			
 		</div>
+		</Router>
+					
 			
 
 		)

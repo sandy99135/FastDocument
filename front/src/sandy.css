@@ -1,0 +1,78 @@
+
+.block{
+    position: relative;
+    width: 1300px;
+    height: 800px;
+    background: white;
+    margin: 0px auto;
+    overflow: hidden;
+}
+.creer{
+    position: relative;
+    width: 1300px;
+    margin: 10px auto;
+
+    }
+    .pdf{
+        height:40px;
+
+    }
+.float{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 13px;
+}
+.drapeau{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.sous-block{
+    position: relative;
+    width: 560px;
+    height: 800px;
+    /* background: rgba(252, 60, 60, 0.664); */
+    margin: 0px auto;
+    text-align: center;
+    padding-top: 20px;
+}
+.sous-block h4{
+    margin-top: 50px;
+}
+.sous-block h2{
+    margin:15px;
+}
+.barre{
+    width: 30%;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.589);
+    margin: auto;
+}
+.formulaire{
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 40px;
+}  
+span{
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.747);
+}
+.caché{
+    position: relative;
+    top:20px;
+    width: 100%;
+    text-align: right;
+}
+.box{
+    position: absolute;
+    right: 0px;
+    width:200px ;
+    text-align: center;
+    font-size: 20px !important;
+}
+.box img{
+    width:100%;
+}
+

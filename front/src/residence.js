@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./residence.css";
+import "./sandy.css";
 import axios from "axios"
 import jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
 import  "dom-to-image/dist/dom-to-image.min.js"
-import StripeCheckout from 'react-stripe-checkout'
+// import StripeCheckout from 'react-stripe-checkout'
   class Residence extends Component {
     constructor(){
     super()
@@ -22,22 +23,22 @@ import StripeCheckout from 'react-stripe-checkout'
   }
   
   render() {
-    const publishableKey = "pk_test_gAynoqTSBUs0tJHDk2ZWaR5P00VWwnB5jm";
-    const onToken = token => {
-      const body = {
-        amount: 999,
-        token: token
-    };  axios
-        .post("http://localhost:8000/", body)
-        .then(response => {
-          console.log(response);
-          alert("Payment Success");
-        })
-        .catch(error => {
-          console.log("Payment Error: ", error);
-          alert("Payment Error");
-        });
-    };
+    // const publishableKey = "pk_test_gAynoqTSBUs0tJHDk2ZWaR5P00VWwnB5jm";
+    // const onToken = token => {
+    //   const body = {
+    //     amount: 999,
+    //     token: token
+    // };  axios
+    //     .post("http://localhost:8000/", body)
+    //     .then(response => {
+    //       console.log(response);
+    //       alert("Payment Success");
+    //     })
+    //     .catch(error => {
+    //       console.log("Payment Error: ", error);
+    //       alert("Payment Error");
+    //     });
+    // };
       function PDF1(e){
       e.preventDefault()
  
@@ -48,7 +49,7 @@ import StripeCheckout from 'react-stripe-checkout'
           return true;
         }
       };
-      domtoimage.toPng(document.querySelector(".inscription2")).then(function (dataUrl) {
+      domtoimage.toPng(document.querySelector(".block")).then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
         console.log(dataUrl)
@@ -66,53 +67,52 @@ import StripeCheckout from 'react-stripe-checkout'
     });
    }
     return(
-          <div className="residence">
-              <div class=" inscription2">
-                  <center>
-                  <h5>Republique Democratique de Madagascar</h5>
-                  <hr/>
-                  <h5>Province Antananarivo</h5>
-                  <hr/>
-                  <h5>Deuxieme Arrondissement</h5>
-                  <hr/>
-                  <h5>Quartier {this.state.profil.nouvquartier}</h5>
-                  <hr/>
-                  <h4>Certificat de residence</h4>
-                  </center>
-                      <div className="row">
-                        <div className=" info "><span><strong>Nom: </strong> .............................{this.state.profil.nom} </span> </div>
-                      </div>
-                      <div className="row">
-                        <div className=" info "><span><strong>Prenom:</strong>.........................{this.state.profil.prenom}</span></div>
-                      </div>
-                      <div className="row">
-                        <div className=" info "><span><strong>Birthday:</strong>........................{this.state.profil.birthday} </span></div>
-                      </div>
-                      <div className="row">
-                        <div className=" info "><span><strong>Adresse:</strong>..........................{this.state.profil.adresse} </span></div>
-                      </div>
-                      <div id='dernier'className="row">
-                        <div className=" info "><span><strong>Telephone:</strong> ........................{this.state.profil.telephone} </span></div>
-                      </div>
-              </div>
-              <div  id="pdfbouton"className="row">
-                        
-                        <StripeCheckout
-                        label="go to payment" //Component button text
-                        name="Business LLC" //Modal Header
-                        description="Upgrade to a premium account today."
-                        panelLabel="Go Premium" //Submit button in modal
-                        amount={999} //Amount in cents $9.99
-                        token={onToken}
-                        stripeKey={publishableKey}
-                        image="https://www.vidhub.co" //Pop-in header image
-                        billingAddress={false}
-                      />
-                      <button onClick={()=>document.querySelector(".residence").style.display="none"}>Annuler</button>
-                      <button visibility="hidden" onClick={PDF1}>Creer PDF1</button>
-                      </div>
-               <div className="succes"> <h2 className="text-success">Creation de PDF reussie</h2></div>
-            </div> 
+    <div className="residence">
+      <div className="creer"> 
+         <button className=" pdf btn-success"onClick={PDF1}>Creer Pdf</button> 
+         <button className=" pdf btn-success" onClick={()=>{
+          document.querySelector(".residence").style.display="none"
+
+        }}>Retourner</button>   
+      </div> 
+      <div class="block">
+
+        <div class="float">
+            REPUBLIQUE DE MADAGASCAR <br/>
+            Tanindrazana-Fahafana-Fandroasoana
+        </div>
+        <div class="drapeau">
+             <img width="100" src="mg.png" alt=""/>
+        </div>
+
+        <div class="sous-block">
+
+            <div class=""></div>
+            <h4 class="h4">FONKONTANY {this.state.profil.nouvquartier}</h4>
+            <div class="barre"></div>
+            <h2>CERTIFICAT DE RESIDENCE</h2>
+            <div class="barre"></div>
+
+            <div class="formulaire">
+                Le Chef Fonkontany {this.state.profil.nouvquartier} certifie que : <br/>
+                   Le nommé <span>{this.state.profil.nom}</span>  <br/>
+                   né a <span>{this.state.profil.lieu}</span>  <br/> le <span>{this.state.profil.birthday}</span>   <br/>
+                   réside en cette cartier depuis <span>10 fev 2017</span> <br/>
+                   A l'adress <span> {this.state.profil.adresse }</span> <br/>
+                    <span>Ambohimirary</span> ,le <span>28 Aout 2019</span>
+            </div>
+
+            <div class="caché">
+                <div class="box">
+                    <img src="caché.jpeg" alt=""/><br/>
+                    Chef fonkontany
+                </div>
+            </div>
+
+          </div>  
+        </div>
+      
+      </div> 
 
       )
   }

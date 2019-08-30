@@ -10,8 +10,8 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
-mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-    () => {console.log('Database is connected') },
+mongoose.connect(config.db2, { useNewUrlParser: true }).then(
+    () => {console.log('Database is connected on ',config.db2) },
     err => { console.log('Can not connect to the database'+ err)}
 );
 
