@@ -43,8 +43,8 @@ class List extends Component {
     },
     {
     	nom:"RABE",
-    	quartier:"Ambomirary",
-    	password:"Ambomirary"
+    	quartier:"Ambohimirary",
+    	password:"Ambohimirary"
     }
     ] 
 		axios.get("http://localhost:8080/user").then(user=>{
@@ -97,6 +97,8 @@ class List extends Component {
 					      <th scope="col">Photo</th>
 					      <th scope="col">Nom</th>
 					      <th scope="col">Prenom</th>
+					      <th scope="col">Sexe</th>
+					      <th scope="col">Metier</th>
 					      <th scope="col">adresse </th>
 					      <th scope="col">Numero telephone</th>
 					    </tr>
@@ -112,6 +114,8 @@ class List extends Component {
 							      <td><img width="100"src={user.image}/></td>
 							      <td>{user.nom}</td>
 							      <td>{user.prenom}</td>
+							      <td>{user.sex}</td>
+							       <td>{user.metier}</td>
 							      <td>{user.adresse}</td>
 							      <td>{user.telephone}</td>
 					    		</tr>

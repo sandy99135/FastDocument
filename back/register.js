@@ -7,6 +7,9 @@ module.exports = function validateRegisterInput(data) {
     data.pseudo = !isEmpty(data.pseudo) ? data.pseudo: '';
     data.prenom = !isEmpty(data.prenom) ? data.prenom : '';
     data.birthday = !isEmpty(data.birthday) ? data.birthday : '';
+    // data.lieu = !isEmpty(data.lieu) ? data.lieu : '';
+    // data.metier = !isEmpty(data.metier) ? data.metier : '';
+    // data.sex = !isEmpty(data.sex) ? data.sex : '';
     data.ancquartier = !isEmpty(data.ancquartier) ? data.ancquartier : '';
     data.nouvquartier = !isEmpty(data.nouvquartier) ? data.nouvquartier : '';
     data.adresse = !isEmpty(data.adresse) ? data.adresse : '';
@@ -35,7 +38,16 @@ module.exports = function validateRegisterInput(data) {
     if(Validator.isEmpty(data.birthday)) {
         errors.birthday = 'birthday is required';
     }
-
+    //  if(Validator.isEmpty(data.lieu)) {
+    //     errors.lieu = 'lieu is required';
+    // }
+    //  if(Validator.isEmpty(data.metier)) {
+    //     errors.metier = 'metier is required';
+    // }
+    //  if(Validator.isEmpty(data.sex)) {
+    //     errors.sex = 'sex is required';
+    // }
+    
     if(Validator.isEmpty(data.password)) {
         errors.password = 'Password is required';
     }

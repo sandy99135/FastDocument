@@ -26,7 +26,7 @@
   }
     componentDidMount(){
       
-      axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
+      axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
       this.setState({src:localStorage.getItem("image")})
     })
   }
@@ -76,10 +76,10 @@ handleChange(e){
    const data = new FormData();
     data.append('image', this.uploadInput.files[0]);
     
-     axios.post("http://localhost:8080/photo/"+ localStorage.getItem("_id"),data).
+     axios.post("http://localhost:8080/photo/"+ localStorage.getItem("id"),data).
     then(res=>{
       console.log(res.data)
-       axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
+       axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
       this.setState({src:res.data.image})
       document.getElementById("Terminer").style.display="block"
     })
@@ -135,10 +135,10 @@ handleChange(e){
                                document.getElementById('tar').value=base64;
                                const data = new FormData();
                                data.append('base', document.getElementById('tar').value);
-                                 axios.post("http://localhost:8080/photocapture/"+ localStorage.getItem("_id"),data).
+                                 axios.post("http://localhost:8080/photocapture/"+ localStorage.getItem("id"),data).
                                then(res=>{
                                  console.log(res.data)
-                                 axios.get("http://localhost:8080/user/"+localStorage.getItem("_id")).then(res=>{
+                                 axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
                                  this.setState({src:res.data.image})
                                })
                               

@@ -24,7 +24,7 @@ class Propos extends Component {
 		this.setState({[e.target.name]: e.target.value })
 	}
 	componentDidMount(){
-		axios.get("http://localhost:8080/user").then(user=>{
+		axios.get("https://fokotany.herokuapp.com/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})
@@ -47,7 +47,7 @@ class Propos extends Component {
     	password:"Ambomirary"
     }
     ] 
-		axios.get("http://localhost:8080/user").then(user=>{
+		axios.get("https://fokotany.herokuapp.com/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})

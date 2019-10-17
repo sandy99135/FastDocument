@@ -67,12 +67,11 @@ class App extends Component {
        document.querySelector(".erreurpassword").innerHTML="" 
     localStorage.setItem("id",res.data.id)
     localStorage.setItem("nom",res.data.nom)
+    localStorage.setItem("image",res.data.image)
     localStorage.setItem("connect",res.data.success)
     axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
       this.setState({profil:res.data})
-      this.setState({connect: localStorage.getItem("connect")})
       this.setState({username:res.data.nom})
-      console.log(this.state.connect)
     })
      this.setState({connect:true})
     document.querySelector(".connect").style.display="none"
@@ -83,11 +82,10 @@ class App extends Component {
     
   }
   componentDidMount(){
-    axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
+    axios.get("http://localhost:8080/"+localStorage.getItem("id")).then(res=>{
       this.setState({profil:res.data})
-       this.setState({username:res.data.nom})
-      this.setState({connect: localStorage.getItem("connect")})
-       console.log(this.state.connect)
+      this.setState({username:res.data.nom})
+      console.log(this.state.connect)
     })
   }
 
@@ -111,8 +109,9 @@ class App extends Component {
        document.querySelector(".erreurpassword").innerHTML="" 
     localStorage.setItem("id",res.data.id)
     localStorage.setItem("nom",res.data.nom)
+    localStorage.setItem("image",res.data.image)
     localStorage.setItem("connect",res.data.success)
-    axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
+    axios.get("http://localhost:8080/"+localStorage.getItem("id")).then(res=>{
       this.setState({profil:res.data})
       this.setState({connect: localStorage.getItem("connect")})
       this.setState({username:res.data.nom})
@@ -146,18 +145,21 @@ class App extends Component {
    let styl={
     background:"linear-gradient(40deg,#DD2880,#eb2af3)"
    }
+   
+   console.log("etat",this.state.connect)
     return (
     <Router>
       <div>
           <div class=" navbar container-fluid" style={styl}>
             <div class="logo">
-                <i class="fa fa-music" style={sty} ></i>
+                <img width="100"src="fokotany.png" />
                 <span class="zion">Service Fokotany</span> 
                 
             </div>
             <div class="connection"> 
-              {this.state.connect ? (
+              {localStorage.getItem("connect") ? (
              <div className="user"> 
+             <img width="50"className="imaguser"src={localStorage.getItem("image")}/>
              <select> 
               <option style={styly}> {localStorage.getItem("nom")} </option> 
               <option>Parametre</option> 
@@ -172,8 +174,6 @@ class App extends Component {
               }}>connecter</span> )}
             </div>
           </div>
-
-          <input type="color" id="couleur"/>
           <div class="menu2 container" >
              <div class=" row1 " >
                   <div class="  menu" onClick={function(){
@@ -235,6 +235,10 @@ class App extends Component {
                    <div class="  menu" >
                    <i class=" icone fa fa-phone-square" style={sty} ></i>
                     <h3>Contact</h3>
+                  </div>
+                   <div class="  menu" >
+                   <i class=" icone fa fa-user" style={sty} ></i>
+                    <h3>Admin</h3>
                   </div>
               </div>
           </div>

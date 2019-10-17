@@ -29,7 +29,7 @@ class Dashboardgrand extends Component {
 		this.setState({[e.target.name]: e.target.value })
 	}
 	componentDidMount(){
-		axios.get("http://localhost:8080/user").then(user=>{
+		axios.get("https://fokotany.herokuapp.com/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})
@@ -48,6 +48,7 @@ class Dashboardgrand extends Component {
     {
     	nom:"RABE",
     	quartier:"Ambomirary",
+    	password:"Ambomirary"
     	
     }
     ] 
@@ -104,7 +105,7 @@ class Dashboardgrand extends Component {
 						}}class="list-group-item list-group-item-action bg-light">List des habitants</a></Link>
 			        <Link to="/admin/propos"><a   onClick={()=>{this.setState({list:false})
 
-						}}class="list-group-item list-group-item-action bg-light">Statistiques</a></Link>
+						}}class="list-group-item list-group-item-action bg-light">Les responsables</a></Link>
 							<a href="#" onClick={()=>{
 								localStorage.removeItem("admin")
 								document.querySelector(".admin").style.display="block"

@@ -11,3 +11,8 @@
 	position:absolute;
 	top:0;
 }
+.connection.user.imaguser{
+	 width:"50px";
+    height:"50px";
+    border-radius:"50%";
+}

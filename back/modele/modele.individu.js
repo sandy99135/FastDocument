@@ -24,6 +24,14 @@ const IndividuSchema = new Schema({
         type:  String,
         
     },
+     sex: {
+        type:  String,
+        
+    },
+     metier: {
+        type:  String,
+        
+    },
    ancquartier: {
         type: String,
     },

@@ -28,7 +28,7 @@ const Chart = require('../modele/modele.chart');
 const Tableau = require('../modele/modele.tableau');
 router.post('/register', function(req, res) {
     Individu.find().then(use=>{
-        const { errors, isValid } = validateRegisterInput(req.body);
+        // const { errors, isValid } = validateRegisterInput(req.body);
         var id;
         if(use.length==0){
             id=0
@@ -36,9 +36,9 @@ router.post('/register', function(req, res) {
         else{
             id=parseInt(use[use.length-1]._id+1)
         }
-        if(!isValid) {
-            return res.status(200).json(errors);
-        }
+        // if(!isValid) {
+        //     return res.status(200).json(errors);
+        // }
          Individu.findOne({
             pseudo: req.body.pseudo
         }).then(user => {
@@ -61,6 +61,8 @@ router.post('/register', function(req, res) {
                     pseudo: req.body.pseudo,
                     birthday: req.body.birthday,
                     lieu: req.body.lieu,
+                    sex: req.body.sex,
+                    metier: req.body.metier,
                     ancquartier: req.body.ancquartier,
                     nouvquartier: req.body. nouvquartier,
                     adresse: req.body.adresse,
@@ -69,7 +71,6 @@ router.post('/register', function(req, res) {
                     password: req.body.password,
                     avatar
                 });
-                
                 bcrypt.genSalt(10, (err, salt) => {
                     if(err) console.error('There was an error', err);
                     else {
@@ -83,6 +84,7 @@ router.post('/register', function(req, res) {
                                     .save()
                                     .then(user => {
                                         res.json(user)
+                                        console.log(user)
                                     }); 
                             }
                         });
@@ -167,6 +169,7 @@ router.post('/login', (req, res) => {
                                         birthday: user.birthday,
                                         lieu: user.lieu,
                                         nouvquartier: user.nouvquartier,
+                                        image: user.image,
                                         success: true,
                                         token: `Bearer ${token}`
                                     });

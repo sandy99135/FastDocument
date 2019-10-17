@@ -58,10 +58,6 @@ import  "dom-to-image/dist/dom-to-image.min.js"
         doc.save("datauri.pdf");
         document.querySelector(".succes").style.display="flex"
         document.querySelector(".residence").style.display="none"
-
-
-        // document.querySelector(".inscription2").innerHTML+=` <img src={dataUrl}/>`
-        // document.body.appendChild(img);
     }).catch(function (error) {
         console.error('oops, something went wrong!', error);
     });
@@ -69,12 +65,13 @@ import  "dom-to-image/dist/dom-to-image.min.js"
     return(
     <div className="residence">
       <div className="creer"> 
-         <button className=" pdf btn-success"onClick={PDF1}>Creer Pdf</button> 
-         <button className=" pdf btn-success" onClick={()=>{
+      <i class=" retour fa fa-arrow-left" onClick={()=>{
           document.querySelector(".residence").style.display="none"
 
-        }}>Retourner</button>   
+        }} ></i>
+      <button className=" pdf btn-success"onClick={PDF1}>Creer Pdf</button>  
       </div> 
+        
       <div class="block">
 
         <div class="float">

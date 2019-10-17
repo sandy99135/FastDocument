@@ -51,9 +51,15 @@
 	display: flex;
 }
 .apercu{
+	position:relative;
 	width:200px;
 	height:200px;
 	border: 1px solid black;
+	margin: 10px auto;
+}
+#capture{
+	
+	margin: 10px auto;
 }
 .photo h3{
  text-align: center;

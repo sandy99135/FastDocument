@@ -24,7 +24,7 @@ class ListAdmin extends Component {
 		this.setState({[e.target.name]: e.target.value })
 	}
 	componentDidMount(){
-		axios.get("http://localhost:8080/user").then(user=>{
+		axios.get("https://fokotany.herokuapp.com/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})
@@ -64,14 +64,14 @@ class ListAdmin extends Component {
     	nom:"RAKOTO",
     	quartier:"Ambatomaro",
     	numero:"Ambatomaro",
-    	photo:"caché.jpeg",
+    	photo:"https://fokotany.herokuapp.com/public/init.jpg",
     },
     {
     	_id:1,
     	nom:"RABE",
     	quartier:"Ambomirary",
     	numero:"Ambomirary",
-    	photo:"caché.jpeg",
+    	photo:"https://fokotany.herokuapp.com/public/init.jpg",
     }
     ] 
 		return(
@@ -101,7 +101,7 @@ class ListAdmin extends Component {
 					      <th scope="col">Id</th>
 					      <th scope="col">Photo</th>
 					      <th scope="col">Nom</th>
-					      <th scope="col">Numero telephone</th>
+					      <th scope="col">quartier</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -112,7 +112,7 @@ class ListAdmin extends Component {
 							      <th scope="row">{user._id}</th>
 							      <td><img width="100"src={user.photo}/></td>
 							      <td>{user.nom}</td>
-							      <td>{user.telephone}</td>
+							      <td>{user.numero}</td>
 					    		</tr>
 					  		)
 

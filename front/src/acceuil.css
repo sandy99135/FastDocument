@@ -88,7 +88,7 @@
 }
 .inscription{
     position: relative;
-	width:400px;
+	width:800px;
     margin:0 auto;
     padding:20px;
     font-family:'Open Sans',sans-serif; 
@@ -101,6 +101,48 @@
 .register .inscription input{
 	 display: block;
      width:100%;
+     height:20px ;
+     margin: 5px auto;
+     text-decoration: none;
+     font-size: 18px;
+     color: rgba(3, 0, 0, 0.8);
+     background: rgba(202, 59, 59, 0);
+     border: rgba(202, 59, 59, 0);
+     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
+     transition: 0.5s;
+}
+.register .inscription .sex{
+	display: inline-block;
+     width:10%;
+     height:20px ;
+     margin: 5px auto;
+     text-decoration: none;
+     font-size: 18px;
+     color: rgba(3, 0, 0, 0.8);
+     background: rgba(202, 59, 59, 0);
+     border: rgba(202, 59, 59, 0);
+     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
+     transition: 0.5s;
+}
+
+.anniversaire{
+	display: inline-block;
+}
+#birthday{
+	display: inline-block;
+     width:40%;
+     height:20px ;
+    /* margin: 5px auto;*/
+     text-decoration: none;
+     font-size: 18px;
+     color: rgba(3, 0, 0, 0.8);
+     background: rgba(202, 59, 59, 0);
+     border: rgba(202, 59, 59, 0);
+     border-bottom: 2px solid rgba(253, 253, 253, 0.8);
+     transition: 0.5s;
+}
+#birthday1{
+     width:5%;
      height:20px ;
      margin: 5px auto;
      text-decoration: none;
