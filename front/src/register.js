@@ -35,25 +35,22 @@ import axios from "axios"
     handleChange(e){
     this.setState({ [e.target.name]: e.target.value }); 
   }
-   handleChange1(e){
-    e.preventDefault()
-    this.setState({lieu:document.getElementById('lieu').options[document.getElementById('lieu').selectedIndex].innerHTML});
-    console.log(this.state.lieu)
-    
+   handleChange1(b){
+    this.setState({lieu:b});
+   document.getElementById('lieubut').innerHTML=b
   }
-  handleChangeQuartier1(e){
-    e.preventDefault()
-    this.setState({ancquartier:document.getElementById('ancquartier').options[document.getElementById('ancquartier').selectedIndex].innerHTML});
+  handleChangeQuartier1(b){
+    this.setState({ancquartier:b});
+    document.getElementById('ancquartierbut').innerHTML=b
   }
-   handleChangeQuartier2(e){
-    e.preventDefault()
-    this.setState({nouvquartier:document.getElementById('nouvquartier').options[document.getElementById('nouvquartier').selectedIndex].innerHTML});
-    
+   handleChangeQuartier2(b){
+   
+    this.setState({nouvquartier:b});
+    document.getElementById('nouvquartierbut').innerHTML=b
   }
-   handleChangemetier(e){
-    e.preventDefault()
-    this.setState({metier:document.getElementById('metier').options[document.getElementById('metier').selectedIndex].innerHTML});
-    
+   handleChangemetier(b){
+    this.setState({metier:b});
+    document.getElementById('metierbut').innerHTML=b
   }
   componentDidMount(){
     axios.get("http://localhost:8080/user/"+localStorage.getItem("id")).then(res=>{
@@ -103,7 +100,8 @@ import axios from "axios"
    
   }
   render() {
-    
+    const lieu=["Ambatomaro","Ambohimirary","Ambohimahitsy"]
+     const metier=["Cultivateur","Marchand","Docteur","Etudiant"]
     return(
           <div className="register">
               <div class=" inscription">
@@ -116,38 +114,85 @@ import axios from "axios"
                     <label for="name">Date et Lieu de naissance</label><br/>
                     <div class="anniveraire">
                       <input id="birthday" type="date"placeholder="Date de naissance"onChange={this.handleChange} value={this.state.value} name="birthday"required/>
-                      <select id="lieu" onChange={this.handleChange1} value={this.state.lieu} >
-                        <option>Selectionnez votre lieu de naissance</option> 
-                        <option>Ambatomaro</option> 
-                        <option>Ambohimirary</option>
-                        <option>Ambohimahitsy</option>
-                    </select>
+                       <div  class="dropdown">
+                          <button id="lieubut"class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Selectionnez lieu
+                          </button>
+                           <div  id="lieu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              {lieu.length >0 ? (lieu.map(toerana=>(
+                                   <a class="dropdown-item" onClick={(e)=>{
+                                    e.preventDefault()
+                                    this.handleChange1(toerana)
+
+                                   }}>{toerana}</a>
+                                )
+
+                              )
+                               
+                                ):""}
+                            </div>
+                      </div>
                     </div>
                     <label for="name">Sexe </label><br/>
                     <label for="name"> <input  className="sex"type="radio" onChange={this.handleChange} value="homme"name="sex"/>homme</label>
                     <label for="name"> <input className="sex" type="radio" onChange={this.handleChange} value="femme"name="sex"/>femme</label><br/>
                     <label for="name">Votre metier </label><br/>
-                    <select id="metier" onChange={this.handleChangemetier} value={this.state.meier}>
-                        <option>Selectionnez votre metier</option> 
-                        <option>Cultivateur</option> 
-                        <option>Marchand</option>
-                        <option>Docteur</option>
-                        <option>Etudiant</option>
-                    </select><br/>
+                     <div class="dropdown">
+                          <button id="metierbut"class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Selectionnez votre metier
+                          </button>
+                           <div  id="metier" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                               {metier.length >0 ? (metier.map(asa=>(
+                                   <a class="dropdown-item" onClick={(e)=>{
+                                    e.preventDefault()
+                                    this.handleChangemetier(asa)
+
+                                   }}>{asa}</a>
+                                )
+
+                              )
+                               
+                                ):""}
+                            </div>
+                      </div>
                     <label for="name">Votre precedent quartier </label><br/>
-                    <select id="ancquartier" onChange={this.handleChangeQuartier1} value={this.state.ancquartier}>
-                        <option>Selectionnez votre Ancien quartier</option> 
-                        <option>Ambatomaro</option> 
-                        <option>Ambohimirary</option>
-                        <option>Ambohimahitsy</option>
-                    </select><br/>  
+                    <div class="dropdown">
+                          <button id="ancquartierbut"class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Selectionnez votre ancien quartier
+                          </button>
+                           <div id="ancquartier" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                             {lieu.length >0 ? (lieu.map(toerana=>(
+                                   <a class="dropdown-item" onClick={(e)=>{
+                                    e.preventDefault()
+                                    this.handleChangeQuartier1(toerana)
+
+                                   }}>{toerana}</a>
+                                )
+
+                              )
+                               
+                                ):""}
+                            </div>
+                      </div>  
                     <label for="name">Votre nouveau quartier </label><br/>
-                    <select id="nouvquartier" onChange={this.handleChangeQuartier2} value={this.state.nouvquartier}>
-                        <option>Selectionnez votre nouveau quartier</option> 
-                        <option>Ambatomaro</option> 
-                        <option>Ambohimirary</option>
-                        <option>Ambohimahitsy</option>
-                    </select><br/> 
+                    <div  class="dropdown">
+                          <button id="nouvquartierbut"class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Selectionnez votre nouveau quartier
+                          </button>
+                           <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              {lieu.length >0 ? (lieu.map(toerana=>(
+                                   <a class="dropdown-item" onClick={(e)=>{
+                                    e.preventDefault()
+                                    this.handleChangeQuartier2(toerana)
+
+                                   }}>{toerana}</a>
+                                )
+
+                              )
+                               
+                                ):""}
+                            </div>
+                      </div>  
                     <label for="name">Adresse</label><br/>
                     <input placeholder="Adresse" onChange={this.handleChange} value={this.state.value} name="adresse" />
                     <label for="name">Votre numero telephone</label><br/>

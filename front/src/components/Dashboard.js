@@ -28,7 +28,7 @@ class Dashboard extends Component {
 		this.setState({[e.target.name]: e.target.value })
 	}
 	componentDidMount(){
-		axios.get("https://fokotany.herokuapp.com/user").then(user=>{
+		axios.get("http://localhost:8080/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})
@@ -51,7 +51,7 @@ class Dashboard extends Component {
     	password:"Ambohimirary"
     }
     ] 
-		axios.get("https://localhost:8080/user").then(user=>{
+		axios.get("http://localhost:8080/user").then(user=>{
 			console.log(user.data)
 			this.setState({habitant:user.data})
 		})

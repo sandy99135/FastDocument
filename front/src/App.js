@@ -16,6 +16,7 @@ import Photo from "./photo"
 import Fifindramonina from "./fifindrana"
 import Residence from "./residence"
 import Register from "./register"
+import Contact from "./components/contact"
 import Dashboard from "./components/Dashboard"
 import Dashboardgrand from "./components/admin"
 import MapContainer from "./components/map"
@@ -159,15 +160,20 @@ class App extends Component {
             <div class="connection"> 
               {localStorage.getItem("connect") ? (
              <div className="user"> 
-             <img width="50"className="imaguser"src={localStorage.getItem("image")}/>
-             <select> 
-              <option style={styly}> {localStorage.getItem("nom")} </option> 
-              <option>Parametre</option> 
-              <option onClick={(e)=> { 
-                      e.preventDefault()
-                      document.querySelector(".deconnect").style.display="block"}}>Deconnecter</option> 
-             </select> 
-              </div>):(<span class="connecter" onClick={()=>{
+             <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 {localStorage.getItem("nom")}
+                </button>
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">{localStorage.getItem("nom")}</a>
+                  <a class="dropdown-item" href="#">Parametre</a>
+                  <a class="dropdown-item"  onClick={(e)=> { 
+                          e.preventDefault()
+                          document.querySelector(".deconnect").style.display="block"}}href="#">Deconnecter</a>
+                 </div>
+            </div>
+              </div>)
+              :(<span class="connecter" onClick={()=>{
                         document.querySelector(".connect").style.display="block"
                         document.querySelector(".connect").style.top="0"
                         document.querySelector(".inscription1").style.display="block"
@@ -232,11 +238,14 @@ class App extends Component {
                     <i class=" icone fa fa-globe" style={sty} ></i>
                     <h3>Carte</h3>
                   </div>
-                   <div class="  menu" >
+                   <div class="  menu"  onClick={(e)=>window.location="/contact"}>
                    <i class=" icone fa fa-phone-square" style={sty} ></i>
                     <h3>Contact</h3>
                   </div>
-                   <div class="  menu" >
+                   <div class="  menu"  onClick={(e)=> { 
+                      e.preventDefault()
+                      window.location="/dashboard"
+                      }}>
                    <i class=" icone fa fa-user" style={sty} ></i>
                     <h3>Admin</h3>
                   </div>
@@ -288,6 +297,7 @@ class App extends Component {
             </div>
             <Photo /> 
             <Route path="/admin" component={Dashboardgrand}/>
+            <Route path="/contact" component={Contact}/>
             <Route path="/dashboard" component={Dashboard}/>
             <Route path="/map" component={MapContainer}/>
       </div>
